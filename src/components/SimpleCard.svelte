@@ -19,6 +19,15 @@
 			likeCount -= 1;
 		}
 	}
+
+	async function copyCodeToClipboard() {
+		try {
+			await navigator.clipboard.writeText(cuponCode);
+			alert('Coupon code copied to clipboard!');
+		} catch (err) {
+			alert('Failed to copy the coupon code.');
+		}
+	}
 </script>
 
 <div class="bg-white shadow-md rounded-lg p-4 max-w-sm">
@@ -29,7 +38,15 @@
 		<li><strong>Model:</strong> {model}</li>
 		<li><strong>Rating:</strong> {rating} / 5</li>
 		<li><strong>Sold:</strong> {totalBought}</li>
-		<li><strong>Coupon Code:</strong> {cuponCode}</li>
+		<li>
+			<button
+				class="bg-blue-100 hover:bg-blue-200 rounded py-1 px-3 text-blue-700"
+				on:click={copyCodeToClipboard}
+			>
+				<strong>Coupon Code:</strong>
+				{cuponCode}
+			</button>
+		</li>
 	</ul>
 	<div class="flex items-center space-x-4 mt-4">
 		<button
