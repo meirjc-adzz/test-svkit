@@ -1,4 +1,8 @@
-<script lang="ts">
+<script>
+	import { tick } from 'svelte';
+	import { user } from '../stores/stores'; // Ensure the path is correct
+	import { updateLikesOnServer } from '../utils/updateLikes'; // Import the server update simulation
+
 	export let title = 'Default Title';
 	export let description = 'Default description.';
 	export let likes = 0;
@@ -7,16 +11,46 @@
 	export let rating = 0;
 	export let totalBought = 0;
 	export let cuponCode = 'No code';
+	export let itemId = 0; // Assuming each card has a unique itemId
 
 	let likeCount = likes;
+	let isLoggedIn = false;
 
-	function like() {
-		likeCount += 1;
+	user.subscribe(($user) => {
+		isLoggedIn = $user.isLoggedIn;
+	});
+
+	async function like() {
+		if (!isLoggedIn) {
+			alert('You must log in to vote.');
+			return;
+		}
+		const newLikeCount = likeCount + 1;
+		try {
+			await updateLikesOnServer(itemId, newLikeCount);
+			likeCount = newLikeCount;
+			console.log('Like updated on the server.');
+			await tick(); // Ensure Svelte processes the state change
+		} catch (error) {
+			console.error('Failed to update like on the server:', error);
+		}
 	}
 
-	function dislike() {
+	async function dislike() {
+		if (!isLoggedIn) {
+			alert('You must log in to vote.');
+			return;
+		}
 		if (likeCount > 0) {
-			likeCount -= 1;
+			const newLikeCount = likeCount - 1;
+			try {
+				await updateLikesOnServer(itemId, newLikeCount);
+				likeCount = newLikeCount;
+				console.log('Dislike updated on the server.');
+				await tick(); // Ensure Svelte processes the state change
+			} catch (error) {
+				console.error('Failed to update dislike on the server:', error);
+			}
 		}
 	}
 
