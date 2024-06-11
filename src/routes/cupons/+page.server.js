@@ -1,7 +1,8 @@
 import { SECRET_DRCTS } from '$env/static/private'; // Api bearer token
+import { PUBLIC_DRCTS } from '$env/static/public';
 // console.log(SECRET_DRCTS);
 
-let url = 'https://cms.coupon.guru/items/coupons?limit=256';
+let url = 'https://cms.coupon.guru/items/coupons?limit=512';
 
 export async function load({ fetch }) {
 	try {

@@ -5,28 +5,7 @@
 
 	export let description = 'Default description.';
 	export let likes = 0;
-	export let brand = 'Brand';
-	export let model = 'Model';
-	export let rating = 0;
-	export let totalBought = 0;
 	export let cuponCode = 'No code';
-	export let itemId = 0; // Assuming each card has a unique itemId
-	// -------
-	// 	{
-	//     id: 2,
-	//     status: 'draft',
-	//     sort: null,
-	//     user_created: '65307a14-8063-40fb-9574-39c9a2dd0d38',
-	//     date_created: '2024-05-26T14:12:58.342Z',
-	//     lmd_id: '1613065',
-	//     store: 'abebooks.com',
-	//     merchant_homepage: 'https://www.abebooks.com/',
-	//     offer_text: 'Rare Books starting at just $2500',
-	//     offer_value: 'Great Value',
-	//     title: 'Rare Books',
-	//     brand: null
-	//   },
-	// -------
 	export let id = 'NO ID';
 	export let status = 'NO STATUS';
 	export let lmd_id = 'NO LMD ID';
@@ -50,7 +29,7 @@
 		}
 		const newLikeCount = likeCount + 1;
 		try {
-			await updateLikesOnServer(itemId, newLikeCount);
+			await updateLikesOnServer(id, newLikeCount);
 			likeCount = newLikeCount;
 			console.log('Like updated on the server.');
 			await tick(); // Ensure Svelte processes the state change
@@ -67,7 +46,7 @@
 		if (likeCount > 0) {
 			const newLikeCount = likeCount - 1;
 			try {
-				await updateLikesOnServer(itemId, newLikeCount);
+				await updateLikesOnServer(id, newLikeCount);
 				likeCount = newLikeCount;
 				console.log('Dislike updated on the server.');
 				await tick(); // Ensure Svelte processes the state change
