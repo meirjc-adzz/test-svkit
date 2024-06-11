@@ -3,7 +3,6 @@
 	import { user } from '../stores/stores'; // Ensure the path is correct
 	import { updateLikesOnServer } from '../utils/updateLikes'; // Import the server update simulation
 
-	export let title = 'Default Title';
 	export let description = 'Default description.';
 	export let likes = 0;
 	export let brand = 'Brand';
@@ -12,6 +11,30 @@
 	export let totalBought = 0;
 	export let cuponCode = 'No code';
 	export let itemId = 0; // Assuming each card has a unique itemId
+	// -------
+	// 	{
+	//     id: 2,
+	//     status: 'draft',
+	//     sort: null,
+	//     user_created: '65307a14-8063-40fb-9574-39c9a2dd0d38',
+	//     date_created: '2024-05-26T14:12:58.342Z',
+	//     lmd_id: '1613065',
+	//     store: 'abebooks.com',
+	//     merchant_homepage: 'https://www.abebooks.com/',
+	//     offer_text: 'Rare Books starting at just $2500',
+	//     offer_value: 'Great Value',
+	//     title: 'Rare Books',
+	//     brand: null
+	//   },
+	// -------
+	export let id = 'NO ID';
+	export let status = 'NO STATUS';
+	export let lmd_id = 'NO LMD ID';
+	export let store = 'NO STORE';
+	export let merchant_homepage = 'NO MERCHANT HOMEPAGE';
+	export let offer_text = 'NO OFFER TEXT';
+	export let offer_value = 'NO OFFER VALUE';
+	export let title = 'NO TITLE';
 
 	let likeCount = likes;
 	let isLoggedIn = false;
@@ -68,17 +91,20 @@
 	<h2 class="text-lg font-semibold">{title}</h2>
 	<p class="text-gray-600">{description}</p>
 	<ul class="text-sm my-2">
-		<li><strong>Brand:</strong> {brand}</li>
-		<li><strong>Model:</strong> {model}</li>
-		<li><strong>Rating:</strong> {rating} / 5</li>
-		<li><strong>Sold:</strong> {totalBought}</li>
+		<li><strong>ID:</strong> {id}</li>
+		<li><strong>Status:</strong> {status}</li>
+		<li><strong>LMD ID:</strong> {lmd_id}</li>
+		<li><strong>Store:</strong> {store}</li>
+		<li><strong>Merchant Homepage:</strong> {merchant_homepage}</li>
+		<li><strong>Offer Text:</strong> {offer_text}</li>
+		<li><strong>Offer Value:</strong> {offer_value}</li>
 		<li>
 			<button
 				class="bg-blue-100 hover:bg-blue-200 rounded py-1 px-3 text-blue-700"
 				on:click={copyCodeToClipboard}
 			>
-				<strong>Coupon Code:</strong>
-				{cuponCode}
+				<strong>Coupon Code: (LMD ID:)</strong>
+				{lmd_id}
 			</button>
 		</li>
 	</ul>
